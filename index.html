@@ -9,13 +9,15 @@
     <div id="app">
       <div>
         <div class="btn-sign-in" @click="googleSignIn()">Sign In</div>
-        <br />
+        <button @click="update()">test</button> <br />
         <h3>Hi my name is {{name}} and my email is {{email}}</h3>
+        <br />
       </div>
     </div>
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
 
     <script>
       // Initialize Firebase. This entire portion can be copied from firebase (view README)
@@ -36,9 +38,6 @@
         data: {
           name: "<not signed in>",
           email: "<not signed in>"
-        },
-        mounted() {
-          this.googleSignIn();
         },
         methods: {
           onUserLoggedIn(user) {
@@ -76,6 +75,9 @@
                 console.log(errorCode);
                 // ...
               });
+          },
+          update: function() {
+            this.name = this.name;
           }
         }
       });
