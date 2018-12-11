@@ -9,7 +9,6 @@
     <div id="app">
       <div>
         <div class="btn-sign-in" @click="googleSignIn()">Sign In</div>
-        <button @click="update()">test</button> <br />
         <h3>Hi my name is {{name}} and my email is {{email}}</h3>
         <br />
       </div>
@@ -57,9 +56,9 @@
 
                 // ... Write what you want to do after successful login here
                 this.name = user.displayName;
-                console.log(user.displayName);
                 console.log(this.name);
                 this.email = user.email;
+                console.log(this.email);
               })
               .catch(function(error) {
                 // Handle Errors here.
@@ -76,9 +75,6 @@
                 // ...
               });
           },
-          update: function() {
-            this.name = this.name;
-          }
         }
       });
     </script>
