@@ -31,54 +31,54 @@
     </script>
 
     <script>
-        var app = new Vue({
-          el: "#app",
-          data: {
-            name: "<not signed in>",
-            email: "<not signed in>"
+      var app = new Vue({
+        el: "#app",
+        data: {
+          name: "<not signed in>",
+          email: "<not signed in>"
+        },
+        mounted() {
+          this.googleSignIn();
+        },
+        methods: {
+          onUserLoggedIn(user) {
+            console.log(user);
           },
-      mounted(){
-      	this.update();
-      },
-          methods: {
-            onUserLoggedIn(user) {
-              console.log(user);
-            },
-            googleSignIn: function() {
-              provider = new firebase.auth.GoogleAuthProvider();
-              firebase
-                .auth()
-                .signInWithPopup(provider)
-                .then(function(result) {
-                  // This gives you a Google Access Token. You can use it to access the Google API.
-                  var token = result.credential.accessToken;
+          googleSignIn: function() {
+            provider = new firebase.auth.GoogleAuthProvider();
+            firebase
+              .auth()
+              .signInWithPopup(provider)
+              .then(function(result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
 
-                  // The signed-in user info.
-                  user = result.user;
+                // The signed-in user info.
+                user = result.user;
 
-                  // ... Write what you want to do after successful login here
-      				this.name = user.displayName;
-      				console.log(user.displayName);
-      				console.log(this.name);
-      				this.email = user.email;
-                })
-                .catch(function(error) {
-                  // Handle Errors here.
-                  var errorCode = error.code;
-                  var errorMessage = error.message;
+                // ... Write what you want to do after successful login here
+                this.name = user.displayName;
+                console.log(user.displayName);
+                console.log(this.name);
+                this.email = user.email;
+              })
+              .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
 
-                  // The email of the user's account used.
-                  var email = error.email;
+                // The email of the user's account used.
+                var email = error.email;
 
-                  // The firebase.auth.AuthCredential type that was used.
-                  var credential = error.credential;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
 
-                  console.log(errorCode);
-                  // ...
-                });
-            },
+                console.log(errorCode);
+                // ...
+              });
           }
-        });
+        }
+      });
     </script>
   </body>
 
