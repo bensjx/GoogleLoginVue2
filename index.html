@@ -9,13 +9,18 @@
     <div id="app">
       <div>
         <div class="btn-sign-in" @click="googleSignIn()">Sign In</div>
+        <button @click="update()">test</button> <br />
+        <h3>
+          Hi my name is <input v-model="name" /> {{name}} and my email is
+          {{email}}
+        </h3>
         <br />
-        <h3>Hi my name is {{name}} and my email is {{email}}</h3>
       </div>
     </div>
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
 
     <script>
       // Initialize Firebase. This entire portion can be copied from firebase (view README)
@@ -35,10 +40,8 @@
         el: "#app",
         data: {
           name: "<not signed in>",
-          email: "<not signed in>"
-        },
-        mounted() {
-          this.googleSignIn();
+          email: "<not signed in>",
+          tempName: "test"
         },
         methods: {
           onUserLoggedIn(user) {
@@ -57,10 +60,11 @@
                 user = result.user;
 
                 // ... Write what you want to do after successful login here
-                this.name = user.displayName;
+                this.tempName = user.displayName;
                 console.log(user.displayName);
                 console.log(this.name);
                 this.email = user.email;
+                this.name = "he";
               })
               .catch(function(error) {
                 // Handle Errors here.
@@ -74,8 +78,12 @@
                 var credential = error.credential;
 
                 console.log(errorCode);
+                this.name = "she";
                 // ...
               });
+          },
+          update: function() {
+            this.name = this.tempName;
           }
         }
       });
