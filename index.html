@@ -9,11 +9,7 @@
     <div id="app">
       <div>
         <div class="btn-sign-in" @click="googleSignIn()">Sign In</div>
-        <button @click="update()">test</button> <br />
-        <h3>
-          Hi my name is <input v-model="name" /> {{name}} and my email is
-          {{email}}
-        </h3>
+        <h3>Hi my name is {{name}} and my email is {{email}}</h3>
         <br />
       </div>
     </div>
@@ -60,11 +56,10 @@
                 user = result.user;
 
                 // ... Write what you want to do after successful login here
-                this.tempName = user.displayName;
-                console.log(user.displayName);
+                this.name = user.displayName;
                 console.log(this.name);
                 this.email = user.email;
-                this.name = "he";
+                console.log(this.email);
               })
               .catch(function(error) {
                 // Handle Errors here.
@@ -78,12 +73,8 @@
                 var credential = error.credential;
 
                 console.log(errorCode);
-                this.name = "she";
                 // ...
               });
-          },
-          update: function() {
-            this.name = this.tempName;
           }
         }
       });
