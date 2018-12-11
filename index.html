@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <div class="btn-sign-in" @click="googleSignIn()">Sign In</div>
+        <br />
+        <h3>Hi my name is {{name}} and my email is {{email}}</h3>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+
+    <script>
+      // Initialize Firebase. This entire portion can be copied from firebase (view README)
+      var config = {
+        apiKey: "AIzaSyD0tjeOI6LqtDa6aSqNK77SL_-2iw36t1w",
+        authDomain: "login-d41be.firebaseapp.com",
+        databaseURL: "https://login-d41be.firebaseio.com",
+        projectId: "login-d41be",
+        storageBucket: "login-d41be.appspot.com",
+        messagingSenderId: "229904947910"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script>
+        var app = new Vue({
+          el: "#app",
+          data: {
+            name: "<not signed in>",
+            email: "<not signed in>"
+          },
+      mounted(){
+      	this.update();
+      },
+          methods: {
+            onUserLoggedIn(user) {
+              console.log(user);
+            },
+            googleSignIn: function() {
+              provider = new firebase.auth.GoogleAuthProvider();
+              firebase
+                .auth()
+                .signInWithPopup(provider)
+                .then(function(result) {
+                  // This gives you a Google Access Token. You can use it to access the Google API.
+                  var token = result.credential.accessToken;
+
+                  // The signed-in user info.
+                  user = result.user;
+
+                  // ... Write what you want to do after successful login here
+      				this.name = user.displayName;
+      				console.log(user.displayName);
+      				console.log(this.name);
+      				this.email = user.email;
+                }).
+                .catch(function(error) {
+                  // Handle Errors here.
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+
+                  // The email of the user's account used.
+                  var email = error.email;
+
+                  // The firebase.auth.AuthCredential type that was used.
+                  var credential = error.credential;
+
+                  console.log(errorCode);
+                  // ...
+                });
+            },
+          }
+        });
+    </script>
+  </body>
+
+  <style>
+    .btn-sign-in {
+      background: #fff;
+      font: 16px/22px Roboto;
+      padding: 4px 8px;
+      border: 1px solid #ccc;
+      display: inline-block;
+      cursor: pointer;
+    }
+  </style>
+</html>
