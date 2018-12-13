@@ -43,6 +43,7 @@
             console.log(user);
           },
           googleSignIn: function() {
+            var self = this;
             provider = new firebase.auth.GoogleAuthProvider();
             firebase
               .auth()
@@ -55,9 +56,9 @@
                 user = result.user;
 
                 // ... Write what you want to do after successful login here
-                this.name = user.displayName;
+                self.name = user.displayName;
                 console.log(this.name);
-                this.email = user.email;
+                self.email = user.email;
                 console.log(this.email);
               })
               .catch(function(error) {
